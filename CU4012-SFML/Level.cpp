@@ -1,14 +1,25 @@
 #include "Level.h"
-Level::Level(sf::RenderWindow* hwnd, Input* in, GameState* gs,sf::View* v, World* w, TileManager* tm)
+Level::Level(sf::RenderWindow* hwnd, Input* in, GameState* gs, sf::View* v, World* w, TileManager* tm)
 {
 	window = hwnd;
 	input = in;
 	gameState = gs;
 	view = v;
-	world = w;	
+	world = w;
 	tileManager = tm;
 	audioManager = new AudioManager();
 
+	audioManager->addMusic("sfx/Cantina.ogg", "bgm");
+	audioManager->addSound("sfx/smb_jump-super.wav", "jump");
+
+
+	audioManager->playMusicbyName("bgm");
+
+
+	world->AddGameObject(player);
+
+	player.setInput(input);
+	player.setAudio(audioManager);
 }
 
 Level::~Level()
@@ -37,19 +48,22 @@ void Level::handleInput(float dt)
 		input->setKeyUp(sf::Keyboard::Tab);
 		gameState->setCurrentState(State::TILEEDITOR);
 	}
+	//zomb.handleInput(dt);
+	player.handleInput(dt);
+
 }
 
 // Update game objects
 void Level::update(float dt)
 {
 
-	//Move the view to follow the player
-	//view->setCenter(view->getCenter().x, 360);
-	//
-	//sf::Vector2f playerPosition = player.getPosition();
-	//float newX = std::max(playerPosition.x, view->getSize().x / 2.0f);
-	//view->setCenter(newX, view->getCenter().y);
-	//window->setView(*view);
+	view->setCenter(view->getCenter().x, 360);
+
+	sf::Vector2f playerPosition = player.getPosition();
+	float newX = std::max(playerPosition.x, view->getSize().x / 2.0f);
+	view->setCenter(newX, view->getCenter().y);
+	window->setView(*view);
+
 }
 
 // Render level
@@ -57,11 +71,13 @@ void Level::render()
 {
 	beginDraw();
 	tileManager->render(false);
+	//window->draw(zomb);
+	window->draw(player);
 	endDraw();
 }
 
 
-void Level::adjustViewToWindowSize(unsigned int width, unsigned int height) 
+void Level::adjustViewToWindowSize(unsigned int width, unsigned int height)
 {
 	sf::FloatRect visibleArea(0, 0, static_cast<float>(width), static_cast<float>(height));
 	view->setSize(static_cast<float>(width), static_cast<float>(height));

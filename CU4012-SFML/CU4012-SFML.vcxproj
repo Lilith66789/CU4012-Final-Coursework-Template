@@ -149,6 +149,7 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="TileEditor.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +170,7 @@
     <ClInclude Include="Framework\World.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="TileEditor.h" />
   </ItemGroup>
   <ItemGroup>
