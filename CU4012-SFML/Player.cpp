@@ -42,7 +42,7 @@ Player::Player()
 	jump.addFrame(sf::IntRect(144, 336, 32, 32));
 	jump.addFrame(sf::IntRect(208, 336, 32, 32));
 
-	jump.setFrameSpeed(1.f / 4.f);
+	jump.setFrameSpeed(1.f / 6.f);
 
 	swim.addFrame(sf::IntRect(0, 21, 16, 20));
 	swim.addFrame(sf::IntRect(16, 21, 16, 20));
@@ -97,6 +97,10 @@ void Player::handleInput(float dt)
 	if (!canJump)
 	{
 		currentAnimation = &jump;
+	}
+	else
+	{
+		jump.reset();
 	}
 
 
