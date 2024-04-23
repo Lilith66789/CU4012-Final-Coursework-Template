@@ -57,6 +57,7 @@ Player::Player()
 
 void Player::handleInput(float dt)
 {
+
 	isMoving = false;
 	velocity.x = 0;
 	setTextureRect(currentAnimation->getCurrentFrame());

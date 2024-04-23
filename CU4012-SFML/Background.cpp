@@ -1,5 +1,6 @@
 #include "Background.h"
 #include "Framework/WindowSize.h"
+#include "Level.h"
 Background::Background()
 {
     // Load textures 
@@ -25,7 +26,7 @@ void Background::LoadTextures()
             backgroundSprites[a][b - 1].setPosition(WINDOWWIDTH * a, 0);
         }
     }
-
+    
 }
 
 BackgroundManager::BackgroundManager()
@@ -35,32 +36,18 @@ BackgroundManager::BackgroundManager()
 void BackgroundManager::update(float dt)
 {
     // Define the base speed for the parallax effect
-    float baseSpeed = 50.0f; // Adjust this value as needed
+    
 
     // Loop through each row
     for (int row = 0; row < 5; ++row)
     {
-        // Calculate the speed for this row based on its index
-        // The idea is to move the sprites in the rows with lower indices slower than those in the rows with higher indices
-        float speed = baseSpeed * (5 - row); // Adjust the formula as needed to get the desired effect
 
         // Loop through each column in the current row
         for (int col = 0; col < 5; ++col)
         {
-            // Get the current sprite
-            sf::Sprite& sprite = dayBackgrounds.getBackgroundSprite(row, col);
+ 
 
-            // Calculate the new position based on the speed and the time delta
-            float newX = sprite.getPosition().x - speed * dt;
-
-            // If the sprite has moved off the screen, reset its position to the right side of the screen
-            if (newX < -WINDOWWIDTH)
-            {
-                newX += WINDOWWIDTH * 5; // Adjust this value based on the number of columns
-            }
-
-            // Update the sprite's position
-            sprite.move(newX*dt, sprite.getPosition().y);
+            
         }
     }
 }
