@@ -74,7 +74,7 @@ void Level::update(float dt)
 	float newX = std::max(playerPosition.x, view->getSize().x / 2.0f);
 	view->setCenter(newX, view->getCenter().y);
 	window->setView(*view);
-	backgroundMng.update(dt);
+	if(player.isMoving) backgroundMng.update(dt);
 
 }
 

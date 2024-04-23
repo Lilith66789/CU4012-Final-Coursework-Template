@@ -17,5 +17,6 @@ class Player : public GameObject
 public:
 	Player();
 	void handleInput(float dt) override;
+	bool isMoving;
 };
 

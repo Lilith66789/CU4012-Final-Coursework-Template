@@ -60,7 +60,7 @@ void BackgroundManager::update(float dt)
             }
 
             // Update the sprite's position
-            sprite.move(newX, sprite.getPosition().y);
+            sprite.move(newX*dt, sprite.getPosition().y);
         }
     }
 }

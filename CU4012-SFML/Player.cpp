@@ -57,6 +57,7 @@ Player::Player()
 
 void Player::handleInput(float dt)
 {
+	isMoving = false;
 	velocity.x = 0;
 	setTextureRect(currentAnimation->getCurrentFrame());
 
@@ -66,6 +67,8 @@ void Player::handleInput(float dt)
 		currentAnimation->setFlipped(true);
 		idle.setFlipped(true);
 		jump.setFlipped(true);
+		isMoving = true;
+
 	}
 
 	else if (input->isKeyDown(sf::Keyboard::D)) {
@@ -74,6 +77,7 @@ void Player::handleInput(float dt)
 		currentAnimation->setFlipped(false);
 		idle.setFlipped(false);
 		jump.setFlipped(false);
+		isMoving = true;
 	}
 
 	else if (input->isKeyDown(sf::Keyboard::S)) {
