@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Background.cpp" />
     <ClCompile Include="Framework\Animation.cpp" />
     <ClCompile Include="Framework\AudioManager.cpp" />
     <ClCompile Include="Framework\BaseLevel.cpp" />
@@ -153,6 +154,7 @@
     <ClCompile Include="TileEditor.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Background.h" />
     <ClInclude Include="Framework\Animation.h" />
     <ClInclude Include="Framework\AudioManager.h" />
     <ClInclude Include="Framework\BaseLevel.h" />
@@ -167,6 +169,7 @@
     <ClInclude Include="Framework\Tiles.h" />
     <ClInclude Include="Framework\UI.h" />
     <ClInclude Include="Framework\Vector.h" />
+    <ClInclude Include="Framework\WindowSize.h" />
     <ClInclude Include="Framework\World.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Menu.h" />

@@ -91,6 +91,7 @@ void TileEditor::render()
 	//ALL the HUD should be drawn after this line
 	window->setView(hudView);
 	window->draw(TileEditorText);
+
 	endDraw();
 }
 

@@ -7,7 +7,7 @@
 #include "Framework/World.h"
 #include "Framework/TileManager.h"
 #include "Framework/AudioManager.h"
-
+#include "Background.h"
 #include "Player.h"
 #include <string>
 #include <iostream>
@@ -23,7 +23,10 @@ public:
 	void adjustViewToWindowSize(unsigned int width, unsigned int height);
 private:
 	// Default variables for level class.
-
-
 	Player player;
+
+	BackgroundManager backgroundMng;
+
+	sf::Sprite testSprite;
+	sf::Texture testTex;
 };

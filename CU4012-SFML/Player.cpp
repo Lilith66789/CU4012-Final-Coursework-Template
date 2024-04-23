@@ -2,13 +2,12 @@
 
 Player::Player()
 {
-	speed = 200;
+	speed = 1000;
 
 	playerSpriteSheet.loadFromFile("gfx/DarkSamuraiAssets/DarkSamurai (64x64).png");
-	setSize(sf::Vector2f(60, 81));
+	setSize(sf::Vector2f(60*2, 81*2));
 	setPosition(100, 100);
 	setTexture(&playerSpriteSheet);
-
 
 	idle.addFrame(sf::IntRect(16, 16, 32, 32));
 	idle.addFrame(sf::IntRect(80, 16, 32, 32));
@@ -54,8 +53,6 @@ Player::Player()
 
 	duck.addFrame(sf::IntRect(0, 44, 17, 17));
 	duck.setFrameSpeed(1.f / 2.f);
-
-
 }
 
 void Player::handleInput(float dt)

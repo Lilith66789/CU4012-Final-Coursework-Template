@@ -1,4 +1,5 @@
 #include "Level.h"
+#include "Framework/WindowSize.h"
 Level::Level(sf::RenderWindow* hwnd, Input* in, GameState* gs, sf::View* v, World* w, TileManager* tm)
 {
 	window = hwnd;
@@ -20,6 +21,16 @@ Level::Level(sf::RenderWindow* hwnd, Input* in, GameState* gs, sf::View* v, Worl
 
 	player.setInput(input);
 	player.setAudio(audioManager);
+
+
+	if (!testTex.loadFromFile("gfx/free-scrolling-city-backgrounds-pixel-art/Backgrounds/1/Day/1.png"))
+	{
+
+	}
+
+	testSprite.setTexture(testTex);
+	testSprite.setPosition(0, 0);
+
 }
 
 Level::~Level()
@@ -57,12 +68,13 @@ void Level::handleInput(float dt)
 void Level::update(float dt)
 {
 
-	view->setCenter(view->getCenter().x, 360);
+	view->setCenter(view->getCenter().x, WINDOWHEIGHT/2);
 
 	sf::Vector2f playerPosition = player.getPosition();
 	float newX = std::max(playerPosition.x, view->getSize().x / 2.0f);
 	view->setCenter(newX, view->getCenter().y);
 	window->setView(*view);
+	backgroundMng.update(dt);
 
 }
 
@@ -70,9 +82,14 @@ void Level::update(float dt)
 void Level::render()
 {
 	beginDraw();
+	//window->draw(testSprite);
+	backgroundMng.render(window);
+
 	tileManager->render(false);
 	//window->draw(zomb);
 	window->draw(player);
+	
+	
 	endDraw();
 }
 
