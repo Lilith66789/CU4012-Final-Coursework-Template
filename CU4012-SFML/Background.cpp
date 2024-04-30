@@ -58,7 +58,7 @@ void BackgroundManager::render(sf::RenderWindow* window)
     {
         for (int b = 0; b < 5; b++)
         {
-            std::cout << "Draw backrgound" << a << b <<" Position: "<<WINDOWWIDTH*a<<":"<<0 << std::endl;
+           // std::cout << "Draw backrgound" << a << b <<" Position: "<<WINDOWWIDTH*a<<":"<<0 << std::endl;
             window->draw(dayBackgrounds.getBackgroundSprite(a, b));
         }
     }

@@ -72,13 +72,15 @@ void Level::update(float dt)
 void Level::render()
 {
 	backgroundMng.render(window);
-	//window->draw(zomb);
-	window->draw(player);
-	
+
 	if (gameState->getCurrentState() == State::LEVEL)
 	{
 		tileManager->render(false);
 	}
+	//window->draw(zomb);
+	window->draw(player);
+	
+
 }
 
 

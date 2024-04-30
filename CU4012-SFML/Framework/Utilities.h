@@ -26,5 +26,6 @@ inline void GetActualResolution(int& horizontal, int& vertical) {
 
 inline void InitializeResolution() {
     GetActualResolution(SCREEN_WIDTH, SCREEN_HEIGHT);
+    std::cout << SCREEN_WIDTH << ":" << SCREEN_HEIGHT << std::endl;
 }
 #endif // UTILITY_H
