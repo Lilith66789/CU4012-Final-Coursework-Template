@@ -9,7 +9,6 @@ Level::Level(sf::RenderWindow* hwnd, Input* in, GameState* gs, sf::View* v, Worl
 	world = w;
 	tileManager = tm;
 	audioManager = new AudioManager();
-
 	audioManager->addMusic("sfx/Cantina.ogg", "bgm");
 	audioManager->addSound("sfx/smb_jump-super.wav", "jump");
 
@@ -21,15 +20,6 @@ Level::Level(sf::RenderWindow* hwnd, Input* in, GameState* gs, sf::View* v, Worl
 
 	player.setInput(input);
 	player.setAudio(audioManager);
-
-
-	if (!testTex.loadFromFile("gfx/free-scrolling-city-backgrounds-pixel-art/Backgrounds/1/Day/1.png"))
-	{
-
-	}
-
-	testSprite.setTexture(testTex);
-	testSprite.setPosition(0, 0);
 
 }
 
@@ -81,16 +71,14 @@ void Level::update(float dt)
 // Render level
 void Level::render()
 {
-	beginDraw();
-	//window->draw(testSprite);
 	backgroundMng.render(window);
-
-	tileManager->render(false);
 	//window->draw(zomb);
 	window->draw(player);
 	
-	
-	endDraw();
+	if (gameState->getCurrentState() == State::LEVEL)
+	{
+		tileManager->render(false);
+	}
 }
 
 
