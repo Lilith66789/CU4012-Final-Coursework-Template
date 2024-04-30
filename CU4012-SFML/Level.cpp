@@ -49,7 +49,6 @@ void Level::handleInput(float dt)
 		input->setKeyUp(sf::Keyboard::Tab);
 		gameState->setCurrentState(State::TILEEDITOR);
 	}
-	//zomb.handleInput(dt);
 	player.handleInput(dt);
 
 }
@@ -73,11 +72,14 @@ void Level::render()
 {
 	backgroundMng.render(window);
 
-	if (gameState->getCurrentState() == State::LEVEL)
+	if (gameState->getCurrentState() == State::TILEEDITOR)
+	{
+		window->draw(player.getDebugCollisionBox());
+	}
+	else
 	{
 		tileManager->render(false);
 	}
-	//window->draw(zomb);
 	window->draw(player);
 	
 

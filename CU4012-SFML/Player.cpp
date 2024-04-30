@@ -43,11 +43,6 @@ Player::Player()
 
 	jump.setFrameSpeed(1.f / 6.f);
 
-	swim.addFrame(sf::IntRect(0, 21, 16, 20));
-	swim.addFrame(sf::IntRect(16, 21, 16, 20));
-	swim.addFrame(sf::IntRect(32, 21, 16, 20));
-	swim.setFrameSpeed(1.f / 4.f);
-
 	currentAnimation = &walk;
 	setTextureRect(currentAnimation->getCurrentFrame());
 
@@ -69,7 +64,6 @@ void Player::handleInput(float dt)
 		idle.setFlipped(true);
 		jump.setFlipped(true);
 		isMoving = true;
-
 	}
 
 	else if (input->isKeyDown(sf::Keyboard::D)) {
@@ -85,13 +79,12 @@ void Player::handleInput(float dt)
 		currentAnimation = &duck;
 	}
 
-
 	else {
 		//currentAnimation->reset();
 		currentAnimation = &idle;
 	}
 
-	if (input->isKeyDown(sf::Keyboard::Space) && canJump) {
+	if (input->isKeyDown(sf::Keyboard::Space) && canJump || input->isKeyDown(sf::Keyboard::W)&&canJump) {
 		Jump(200.f);
 		audio->playSoundbyName("jump");
 	}
