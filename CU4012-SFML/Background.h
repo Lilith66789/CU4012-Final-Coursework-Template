@@ -24,7 +24,7 @@ the way it works we have a 5x5 grid of texture and sprites we load and set them.
 */
 class Background
 {
-	int scaleFactor;
+	float scaleFactor;
 	sf::Texture backgroundTex[5][5];
 	sf::Sprite backgroundSprites[5][5];
 public:

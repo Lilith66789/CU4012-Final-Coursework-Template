@@ -4,7 +4,7 @@
 Background::Background()
 {
     // Load textures 
-    scaleFactor = 7;
+    scaleFactor = 4.44444444444;
     LoadTextures();
 }
 void Background::LoadTextures()
@@ -35,21 +35,7 @@ BackgroundManager::BackgroundManager()
 
 void BackgroundManager::update(float dt)
 {
-    // Define the base speed for the parallax effect
-    
 
-    // Loop through each row
-    for (int row = 0; row < 5; ++row)
-    {
-
-        // Loop through each column in the current row
-        for (int col = 0; col < 5; ++col)
-        {
- 
-
-            
-        }
-    }
 }
 
 void BackgroundManager::render(sf::RenderWindow* window)
