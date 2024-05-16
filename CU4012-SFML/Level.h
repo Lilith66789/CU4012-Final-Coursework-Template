@@ -9,6 +9,7 @@
 #include "Framework/AudioManager.h"
 #include "Background.h"
 #include "Player.h"
+#include "Enemy.h"
 #include <string>
 #include <iostream>
 
@@ -24,6 +25,7 @@ public:
 private:
 	// Default variables for level class.
 	Player player;
+	Enemy enemy;
 
 	BackgroundManager backgroundMng;
 

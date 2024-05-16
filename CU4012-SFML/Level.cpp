@@ -50,6 +50,7 @@ void Level::handleInput(float dt)
 		gameState->setCurrentState(State::TILEEDITOR);
 	}
 	player.handleInput(dt);
+	enemy.handleInput(dt);
 
 }
 
@@ -81,6 +82,7 @@ void Level::render()
 		tileManager->render(false);
 	}
 	window->draw(player);
+	window->draw(enemy);
 	
 
 }

@@ -14,6 +14,7 @@ class Enemy : public GameObject
 
 public:
 	Enemy();
+	void handleInput(float dt) override;
 	bool isMoving;
 
 };

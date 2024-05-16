@@ -5,20 +5,32 @@ Enemy::Enemy()
 
 	speed = 300;
 
-	enemySpriteSheet.loadFromFile("gfx/tooth walker/ tooth walker/ tooth walker sprite-Sheet.png");
-	setSize(sf::Vector2f(60 * 2, 81 * 2));
+	enemySpriteSheet.loadFromFile("gfx/tooth walker/tooth walker/tooth walker sprite - Sheet.png");
+	setSize(sf::Vector2f(13 * 4, 44 * 4));
 	setPosition(400, 400);
 	setTexture(&enemySpriteSheet);
 
+	if (!enemySpriteSheet.loadFromFile("gfx/toothwalker/toothwalker/tooth walker sprite-Sheet.png")) {
+		std::cout << "Error loading enemy sprite sheet" << std::endl;
+	}
 
-	idle.addFrame(sf::IntRect(32, 80, 13, 44));
-	idle.addFrame(sf::IntRect(96, 80, 13, 44));
-	idle.addFrame(sf::IntRect(160, 80, 32, 32));
-	idle.addFrame(sf::IntRect(208, 16, 32, 32));
-	idle.addFrame(sf::IntRect(272, 16, 32, 32));
-	idle.addFrame(sf::IntRect(336, 16, 32, 32));
-	idle.addFrame(sf::IntRect(400, 16, 32, 32));
-	idle.addFrame(sf::IntRect(464, 16, 32, 32));
 
-	idle.setFrameSpeed(1.f / 8.f);
+	idle.addFrame(sf::IntRect(32, 80, 16, 48));
+	idle.addFrame(sf::IntRect(96, 80, 13, 48));
+	idle.addFrame(sf::IntRect(160, 80, 13, 48));
+	idle.addFrame(sf::IntRect(224, 80, 13, 48));
+
+	idle.setFrameSpeed(1.f / 2.f);
+
+	currentAnimation = &idle;
+	setTextureRect(currentAnimation->getCurrentFrame());
+}
+
+void Enemy::handleInput(float dt)
+{
+	isMoving = false;
+	velocity.x = 0;
+	setTextureRect(currentAnimation->getCurrentFrame());
+
+	currentAnimation->animate(dt);
 }
