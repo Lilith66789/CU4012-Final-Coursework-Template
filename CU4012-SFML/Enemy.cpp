@@ -1,9 +1,15 @@
 #include "Enemy.h"
+#include <chrono>
+#include <thread>
+
 
 Enemy::Enemy()
 {
 
 	speed = 300;
+    bool isWaiting(false);
+    float waitDuration(2.0f);
+    velocity.x = speed;
 
 	enemySpriteSheet.loadFromFile("gfx/toothwalker/toothwalker/tooth walker sprite-Sheet.png");
 	setSize(sf::Vector2f(16 * 4, 44 * 4));
@@ -16,7 +22,7 @@ Enemy::Enemy()
 	idle.addFrame(sf::IntRect(160, 80, 16, 44));
 	idle.addFrame(sf::IntRect(224, 80, 16, 44));
 
-	idle.setFrameSpeed(1.f / 2.f);
+	idle.setFrameSpeed(1.f / 4.f);
 
 	walk.addFrame(sf::IntRect(32, 16, 16, 44));
 	walk.addFrame(sf::IntRect(96, 16, 16, 44));
@@ -33,9 +39,40 @@ Enemy::Enemy()
 
 void Enemy::handleInput(float dt)
 {
-	isMoving = false;
-	velocity.x = 0;
-	setTextureRect(currentAnimation->getCurrentFrame());
+    setTextureRect(currentAnimation->getCurrentFrame());
 
-	currentAnimation->animate(dt);
+    // Handle collision
+    if (CollisionWithTag("Wall")) {
+        std::cout << "Colliding with wall" << std::endl;
+        currentAnimation = &idle; // Switch to idle animation
+        currentAnimation->animate(dt);
+        isWaiting = true;
+        waitStartTime = std::chrono::steady_clock::now(); // Start the wait timer
+        idle.setFlipped(velocity.x < 0);
+        setPosition((getPosition().x-(velocity.x/100)), getPosition().y);
+        PreVelo = velocity.x;
+        velocity.x = 0;
+        return;
+    }
+
+    if (isWaiting) {
+        // Calculate the elapsed time since we started waiting
+        auto now = std::chrono::steady_clock::now();
+        std::chrono::duration<float> elapsed = now - waitStartTime;
+
+        if (elapsed.count() >= waitDuration) {
+            // Done waiting
+            isWaiting = false;
+            velocity.x = PreVelo;
+            velocity.x = -velocity.x; // Reverse velocity
+            walk.setFlipped(velocity.x < 0); // Flip based on new direction
+            idle.setFlipped(velocity.x < 0); // Flip based on new direction
+            currentAnimation = &walk;
+        }
+        return; // Skip the rest of the update while waiting
+    }
+
+
+    currentAnimation->animate(dt);
+
 }

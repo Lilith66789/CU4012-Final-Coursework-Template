@@ -1,6 +1,10 @@
 #pragma once
 #include "Framework/GameObject.h"
 #include "Framework/Animation.h"
+#include <chrono>
+#include <thread>
+
+
 class Enemy : public GameObject
 {
 
@@ -16,6 +20,10 @@ public:
 	Enemy();
 	void handleInput(float dt) override;
 	bool isMoving;
+	bool isWaiting = false;
+	std::chrono::time_point<std::chrono::steady_clock> waitStartTime;
+	float waitDuration = 2.0f;
+	float PreVelo;
 
 };
 
