@@ -17,6 +17,7 @@ Level::Level(sf::RenderWindow* hwnd, Input* in, GameState* gs, sf::View* v, Worl
 
 
 	world->AddGameObject(player);
+	world->AddGameObject(enemy);
 
 	player.setInput(input);
 	player.setAudio(audioManager);
