@@ -13,7 +13,7 @@ class Enemy : public GameObject
 	Animation idle;
 
 	Animation* currentAnimation;
-
+	float waitDuration;
 	sf::Texture enemySpriteSheet;
 
 public:
@@ -22,7 +22,7 @@ public:
 	bool isMoving;
 	bool isWaiting = false;
 	std::chrono::time_point<std::chrono::steady_clock> waitStartTime;
-	float waitDuration = 2.0f;
+
 	float PreVelo;
 
 };

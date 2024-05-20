@@ -2,7 +2,7 @@
 
 Player::Player()
 {
-	speed = 1000;
+	speed = 700;
 
 	playerSpriteSheet.loadFromFile("gfx/DarkSamuraiAssets/DarkSamurai (64x64).png");
 	setSize(sf::Vector2f(60*2, 81*2));

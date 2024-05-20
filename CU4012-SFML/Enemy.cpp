@@ -8,8 +8,8 @@ Enemy::Enemy()
 
 	speed = 300;
     bool isWaiting(false);
-    float waitDuration(2.0f);
     velocity.x = speed;
+    waitDuration = 2.0f;
 
 	enemySpriteSheet.loadFromFile("gfx/toothwalker/toothwalker/tooth walker sprite-Sheet.png");
 	setSize(sf::Vector2f(16 * 4, 44 * 4));
@@ -44,8 +44,6 @@ void Enemy::handleInput(float dt)
     // Handle collision
     if (CollisionWithTag("Wall")) {
         std::cout << "Colliding with wall" << std::endl;
-        currentAnimation = &idle; // Switch to idle animation
-        currentAnimation->animate(dt);
         isWaiting = true;
         waitStartTime = std::chrono::steady_clock::now(); // Start the wait timer
         idle.setFlipped(velocity.x < 0);
@@ -56,6 +54,7 @@ void Enemy::handleInput(float dt)
     }
 
     if (isWaiting) {
+         currentAnimation = &idle; // Switch to idle animation
         // Calculate the elapsed time since we started waiting
         auto now = std::chrono::steady_clock::now();
         std::chrono::duration<float> elapsed = now - waitStartTime;
@@ -69,7 +68,7 @@ void Enemy::handleInput(float dt)
             idle.setFlipped(velocity.x < 0); // Flip based on new direction
             currentAnimation = &walk;
         }
-        return; // Skip the rest of the update while waiting
+        //return; // Skip the rest of the update while waiting
     }
 
 
