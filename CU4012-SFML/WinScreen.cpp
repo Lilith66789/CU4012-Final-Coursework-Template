@@ -1,10 +1,10 @@
 #include "WinScreen.h"
 
-WinScreen::WinScreen(sf::RenderWindow* hwnd, Input* in, GameState* WIN)
+WinScreen::WinScreen(sf::RenderWindow* hwnd, Input* in, GameState* WinScreen)
 {
 	window = hwnd;
 	input = in;
-	gameState = WIN;
+	gameState = WinScreen;
 
 
 	UIfont.loadFromFile("font/VirtualRotRegular-R51V.ttf");

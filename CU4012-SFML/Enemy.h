@@ -11,6 +11,7 @@ class Enemy : public GameObject
 	int speed;
 	Animation walk;
 	Animation idle;
+	Animation Death;
 
 	Animation* currentAnimation;
 	float waitDuration;
@@ -21,6 +22,7 @@ public:
 	void handleInput(float dt) override;
 	bool isMoving;
 	bool isWaiting = false;
+	bool isLiving;
 	std::chrono::time_point<std::chrono::steady_clock> waitStartTime;
 
 	float PreVelo;

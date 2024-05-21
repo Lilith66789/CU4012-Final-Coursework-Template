@@ -1,6 +1,11 @@
 #pragma once
 #include "Framework/GameObject.h"
 #include "Framework/Animation.h"
+#include "Projectiles.h"
+#include "Framework/World.h"
+#include<vector>
+#include <iostream>
+
 class Player : public GameObject
 {
 	int speed;
@@ -19,6 +24,10 @@ class Player : public GameObject
 	sf::Text collectableText;
 	sf::Font font;
 
+	std::vector<Projectiles*> bullets;
+
+	World* world;
+
 
 public:
 	Player();
@@ -28,5 +37,9 @@ public:
 	int getCollectableCount() { return CollectableCount; }
 	void ReduceHealth(float h);
 	float getHealth() { return health; }
+
+	void setWorld(World* world) { this->world = world; }
+
+	std::vector<Projectiles*>& getBullets() { return bullets; }
 };
 

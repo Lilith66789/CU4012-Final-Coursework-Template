@@ -17,6 +17,7 @@ Level::Level(sf::RenderWindow* hwnd, Input* in, GameState* gs, sf::View* v, Worl
 
 
 	world->AddGameObject(player);
+	player.setWorld(world);
 
 
 	enemyArray[0].setPosition(500, 100);
@@ -108,6 +109,7 @@ void Level::update(float dt)
 		gameState->setCurrentState(State::WIN);
 	}
 
+
 }
 
 // Render level
@@ -138,6 +140,13 @@ void Level::render()
 			window->draw(enemyArray[i]);
 			//window->draw(enemyArray[i].getDebugCollisionBox());
 		}
+	}
+
+	auto bullets = player.getBullets();
+	for (auto& bullet : bullets)
+	{
+		window->draw(*bullet);
+		window->draw(bullet->getDebugCollisionBox());
 	}
 
 

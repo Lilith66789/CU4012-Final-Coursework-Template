@@ -34,6 +34,14 @@ Enemy::Enemy()
 
 	walk.setFrameSpeed(1.f / 4.f);
 
+    Death.addFrame(sf::IntRect(188, 80, 16, 44));
+    Death.addFrame(sf::IntRect(350, 80, 16, 44));
+    Death.addFrame(sf::IntRect(31, 144, 16, 44));
+    Death.addFrame(sf::IntRect(91, 144, 16, 44));
+
+    Death.setFrameSpeed(1.f / 2.f);
+
+
 	currentAnimation = &walk;
 	setTextureRect(currentAnimation->getCurrentFrame());
 }
@@ -71,6 +79,20 @@ void Enemy::handleInput(float dt)
         }
         //return; // Skip the rest of the update while waiting
     }
+
+    if (CollisionWithTag("Bullet")) {
+            currentAnimation = &Death;
+            velocity.x = 0;
+            auto now = std::chrono::steady_clock::now();
+            std::chrono::duration<float> elapsed = now - waitStartTime;
+
+            if (elapsed.count() >= waitDuration) {
+                setAlive(false);
+            }
+        
+    }
+
+
 
 
     currentAnimation->animate(dt);
