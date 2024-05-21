@@ -25,7 +25,8 @@ public:
 private:
 	// Default variables for level class.
 	Player player;
-	Enemy enemy;
+
+	Enemy enemyArray[5];
 
 	BackgroundManager backgroundMng;
 

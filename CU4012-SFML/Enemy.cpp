@@ -10,6 +10,7 @@ Enemy::Enemy()
     bool isWaiting(false);
     velocity.x = speed;
     waitDuration = 2.0f;
+    setTag("Enemy");
 
 	enemySpriteSheet.loadFromFile("gfx/toothwalker/toothwalker/tooth walker sprite-Sheet.png");
 	setSize(sf::Vector2f(16 * 4, 44 * 4));

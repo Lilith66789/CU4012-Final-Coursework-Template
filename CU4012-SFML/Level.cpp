@@ -17,7 +17,17 @@ Level::Level(sf::RenderWindow* hwnd, Input* in, GameState* gs, sf::View* v, Worl
 
 
 	world->AddGameObject(player);
-	world->AddGameObject(enemy);
+
+
+	enemyArray[0].setPosition(500, 100);
+	enemyArray[1].setPosition(1800, 200);
+	enemyArray[2].setPosition(2800, 200);
+	enemyArray[3].setPosition(4000, 200);
+	enemyArray[4].setPosition(5100, 200);
+
+	for (int i = 0; i < 5; i++) {
+		world->AddGameObject(enemyArray[i]);
+	}
 
 	player.setInput(input);
 	player.setAudio(audioManager);
@@ -51,7 +61,9 @@ void Level::handleInput(float dt)
 		gameState->setCurrentState(State::TILEEDITOR);
 	}
 	player.handleInput(dt);
-	enemy.handleInput(dt);
+	for (int i = 0; i < 5; i++) {
+		enemyArray[i].handleInput(dt);
+	}
 
 }
 
@@ -59,20 +71,51 @@ void Level::handleInput(float dt)
 void Level::update(float dt)
 {
 
-	view->setCenter(view->getCenter().x, WINDOWHEIGHT/2);
+	view->setCenter(view->getCenter().x, WINDOWHEIGHT / 2);
 
 	sf::Vector2f playerPosition = player.getPosition();
 	float newX = std::max(playerPosition.x, view->getSize().x / 2.0f);
 	view->setCenter(newX, view->getCenter().y);
 	window->setView(*view);
-	if(player.isMoving) backgroundMng.update(dt);
+
+	if (player.CollisionWithTag("Enemy"))
+	{
+		if (player.getCollisionDirection() == "Down") {
+
+			for (int i = 0; i < 5; i++)
+			{
+
+					world->RemoveGameObject(enemyArray[i]);
+					enemyArray[i].setAlive(false);
+				
+
+			}
+
+		}
+		player.ReduceHealth(0.1 * dt);
+	}
+
+	if (player.getHealth() <= 0)
+	{
+		player.setAlive(false);
+		world->RemoveGameObject(player);
+		gameState->setCurrentState(State::DEAD);
+		player.setPosition(sf::Vector2f(100, player.getPosition().y));
+	}
+
+	if (player.getPosition().x > 10000) {
+		player.setPosition(sf::Vector2f(100, player.getPosition().y));
+		gameState->setCurrentState(State::WIN);
+	}
 
 }
 
 // Render level
 void Level::render()
 {
+	if (player.isAlive()) {
 	backgroundMng.render(window);
+	}
 
 	if (gameState->getCurrentState() == State::TILEEDITOR)
 	{
@@ -82,9 +125,21 @@ void Level::render()
 	{
 		tileManager->render(false);
 	}
-	window->draw(player);
-	window->draw(enemy);
-	
+
+	if (player.isAlive())
+	{
+		window->draw(player);
+		//window->draw(p1.getDebugCollisionBox());
+	}
+
+	for (int i = 0; i < 5; i++) {
+		if (enemyArray[i].isAlive())
+		{
+			window->draw(enemyArray[i]);
+			//window->draw(enemyArray[i].getDebugCollisionBox());
+		}
+	}
+
 
 }
 

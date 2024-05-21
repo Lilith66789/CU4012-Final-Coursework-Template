@@ -3,6 +3,8 @@
 Player::Player()
 {
 	speed = 700;
+	health = 100;
+	CollectableCount = 0;
 
 	playerSpriteSheet.loadFromFile("gfx/DarkSamuraiAssets/DarkSamurai (64x64).png");
 	setSize(sf::Vector2f(60*2, 81*2));
@@ -75,9 +77,6 @@ void Player::handleInput(float dt)
 		isMoving = true;
 	}
 
-	else if (input->isKeyDown(sf::Keyboard::S)) {
-		currentAnimation = &duck;
-	}
 
 	else {
 		//currentAnimation->reset();
@@ -98,7 +97,16 @@ void Player::handleInput(float dt)
 		jump.reset();
 	}
 
-
+	if (CollisionWithTag("Collectable")) {
+		AddCollectable();
+		std::cout << CollectableCount << std::endl;
+		
+	}
 	currentAnimation->animate(dt);
 
+}
+
+void Player::ReduceHealth(float h)
+{
+	health -= h;
 }
