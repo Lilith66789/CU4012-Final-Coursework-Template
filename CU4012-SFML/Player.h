@@ -33,6 +33,7 @@ public:
 	Player();
 	void handleInput(float dt) override;
 	bool isMoving ;
+	bool isFlipped;
 	void AddCollectable() { CollectableCount++; }
 	int getCollectableCount() { return CollectableCount; }
 	void ReduceHealth(float h);

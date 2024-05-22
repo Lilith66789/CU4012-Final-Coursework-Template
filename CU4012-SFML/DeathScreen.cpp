@@ -1,4 +1,5 @@
 #include "DeathScreen.h"
+#include "Framework/WindowSize.h"
 #include "Player.h"
 
 Death::Death(sf::RenderWindow* hwnd, Input* in, GameState* DEAD)
@@ -14,7 +15,7 @@ Death::Death(sf::RenderWindow* hwnd, Input* in, GameState* DEAD)
 
 	menu_texture.loadFromFile("gfx/menu.png");
 	menu_sprite.setTexture(menu_texture);
-	menu_sprite.setScale(1.25, 1);
+	menu_sprite.setScale(1, 1);
 
 
 	Title.setFont(titleFont);
@@ -22,14 +23,14 @@ Death::Death(sf::RenderWindow* hwnd, Input* in, GameState* DEAD)
 	Title.setString("You Have Died");
 	Title.setOutlineColor(sf::Color::Black);
 	Title.setCharacterSize(70);
-	Title.setPosition(500, 50);
+	Title.setPosition(0.5 * WINDOWWIDTH, WINDOWHEIGHT - 200);
 
 
 
 	UIText[1].text.setFont(UIfont);
 	UIText[1].text.setFillColor(sf::Color::White);
 	UIText[1].text.setString("Exit");
-	UIText[1].text.setPosition(sf::Vector2f(600, 150));
+	UIText[1].text.setPosition(sf::Vector2f(0.5* WINDOWWIDTH, WINDOWHEIGHT -200));
 	UIText[1].setCollisionBox(sf::FloatRect(600, 165, 35, 15));
 
 
@@ -52,14 +53,14 @@ void Death::update(float dt)
 	sf::Vector2u windowSize = window->getSize();
 
 	float TextOffset = 1.5;
-	Title.setPosition(windowSize.x / TextOffset - Title.getGlobalBounds().width / TextOffset, 50);
+	Title.setPosition(WINDOWWIDTH/ TextOffset - Title.getGlobalBounds().width / TextOffset, 50);
 
 
-	UIText[0].text.setPosition(sf::Vector2f(windowSize.x / TextOffset - UIText[0].text.getGlobalBounds().width / TextOffset, 120));
-	UIText[0].setCollisionBox(sf::FloatRect(windowSize.x / TextOffset - UIText[0].text.getGlobalBounds().width / TextOffset, 135, 35, 15));
+	UIText[0].text.setPosition(sf::Vector2f(WINDOWWIDTH / TextOffset - UIText[0].text.getGlobalBounds().width / TextOffset, 120));
+	UIText[0].setCollisionBox(sf::FloatRect(WINDOWWIDTH / TextOffset - UIText[0].text.getGlobalBounds().width / TextOffset, 135, 35, 15));
 
-	UIText[1].text.setPosition(windowSize.x / TextOffset - UIText[1].text.getGlobalBounds().width / TextOffset, 150);
-	UIText[1].setCollisionBox(sf::FloatRect(windowSize.x / TextOffset - UIText[1].text.getGlobalBounds().width / TextOffset, 165, 35, 15));
+	UIText[1].text.setPosition(WINDOWWIDTH / TextOffset - UIText[1].text.getGlobalBounds().width / TextOffset, 150);
+	UIText[1].setCollisionBox(sf::FloatRect(WINDOWWIDTH / TextOffset - UIText[1].text.getGlobalBounds().width / TextOffset, 165, 35, 15));
 
 
 	// Update mouse position
@@ -150,7 +151,6 @@ int Death::handleInput(float dt)
 
 void Death::render()
 {
-	beginDraw();
 	window->draw(menu_sprite);
 	window->draw(Title);
 	for (int i = 0; i < 2; i++)
@@ -164,7 +164,6 @@ void Death::render()
 	//	window->draw(UIText[i].getDebugShape());
 	//}
 
-	endDraw();
 }
 
 

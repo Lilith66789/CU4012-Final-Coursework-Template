@@ -79,6 +79,7 @@ void Level::update(float dt)
 	view->setCenter(newX, view->getCenter().y);
 	window->setView(*view);
 
+
 	if (player.CollisionWithTag("Enemy"))
 	{
 		if (player.getCollisionDirection() == "Down") {
@@ -109,7 +110,11 @@ void Level::update(float dt)
 		gameState->setCurrentState(State::WIN);
 	}
 
-
+	for (int i = 0; i < 5; i++) {
+		if (!enemyArray[i].isAlive()) {
+			world->RemoveGameObject(enemyArray[i]);
+		}
+	}
 }
 
 // Render level

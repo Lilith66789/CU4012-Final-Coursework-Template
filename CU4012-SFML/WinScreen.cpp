@@ -156,7 +156,6 @@ int WinScreen::handleInput(float dt)
 
 void WinScreen::render()
 {
-	beginDraw();
 	window->draw(menu_sprite);
 	window->draw(Title);
 	for (int i = 0; i < 2; i++)
@@ -170,7 +169,6 @@ void WinScreen::render()
 	//	window->draw(UIText[i].getDebugShape());
 	//}
 
-	endDraw();
 }
 
 

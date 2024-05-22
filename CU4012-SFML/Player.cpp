@@ -66,6 +66,7 @@ void Player::handleInput(float dt)
 		idle.setFlipped(true);
 		jump.setFlipped(true);
 		isMoving = true;
+		isFlipped = true;
 	}
 
 	else if (input->isKeyDown(sf::Keyboard::D)) {
@@ -75,6 +76,7 @@ void Player::handleInput(float dt)
 		idle.setFlipped(false);
 		jump.setFlipped(false);
 		isMoving = true;
+		isFlipped = false;
 	}
 
 
@@ -110,12 +112,12 @@ void Player::handleInput(float dt)
 
 		// Create a new projectile
 		Projectiles* bullet = new Projectiles();
-		if (velocity.x <=0) {
-			sf::Vector2f BulletPos = getPosition() - sf::Vector2f(100,- 50);
+		if (isFlipped == false) {
+			sf::Vector2f BulletPos = getPosition() - sf::Vector2f(-120,- 81);
 			bullet->setPosition(BulletPos);
 		}
-		else if(velocity.x > 0){
-			sf::Vector2f BulletPos = getPosition() + sf::Vector2f(0, 50);
+		else if(isFlipped == true){
+			sf::Vector2f BulletPos = getPosition() + sf::Vector2f(0, 81);
 			bullet->setPosition(BulletPos);
 		}
 		// Calculate the position of the mouse
@@ -130,7 +132,12 @@ void Player::handleInput(float dt)
 
 		// Set the velocity of the bullet to be in the direction of the mouse
 		// Adjust the speed as needed by multiplying the normalized direction by the desired speed
-		bullet->setVelocity(normalizedDirection * 1000.f); // You can adjust the speed by changing 1000.f
+		if (isFlipped == true) {
+			bullet->setVelocity(-1000,0); // You can adjust the speed by changing 1000.f
+		}
+		else if (isFlipped == false) {
+			bullet->setVelocity(1000, 0);
+		}
 
 		// Add the bullet to the list of bullets
 		bullets.push_back(bullet);
