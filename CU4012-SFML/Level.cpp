@@ -9,8 +9,8 @@ Level::Level(sf::RenderWindow* hwnd, Input* in, GameState* gs, sf::View* v, Worl
 	world = w;
 	tileManager = tm;
 	audioManager = new AudioManager();
-	//audioManager->addMusic("sfx/dark-forest_chosic.com_.ogg", "bgm");
-	//audioManager->addSound("sfx/smb_jump-super.wav", "jump");
+	audioManager->addMusic("sfx/dark-forest_chosic.com_.ogg", "bgm");
+	audioManager->addSound("sfx/smb_jump-super.wav", "jump");
 
 
 	audioManager->playMusicbyName("bgm");
@@ -32,6 +32,13 @@ Level::Level(sf::RenderWindow* hwnd, Input* in, GameState* gs, sf::View* v, Worl
 
 	player.setInput(input);
 	player.setAudio(audioManager);
+
+	CollectableFont.loadFromFile("font/arial.ttf");
+	CollectablesCollectedText.setFont(CollectableFont);
+	CollectablesCollectedText.setFillColor(sf::Color::Magenta);
+	CollectablesCollectedText.setOutlineColor(sf::Color::Black);
+	CollectablesCollectedText.setCharacterSize(45);
+
 
 }
 
@@ -78,6 +85,7 @@ void Level::update(float dt)
 	float newX = std::max(playerPosition.x, view->getSize().x / 2.0f);
 	view->setCenter(newX, view->getCenter().y);
 	window->setView(*view);
+	CollectablesCollectedText.setPosition(player.getPosition().x + WINDOWWIDTH/2 - 500, WINDOWHEIGHT / 8);
 
 	for (int i = 0; i < 5; i++) {
 		if (enemyArray[i].CollisionWithTag("Player")) {
@@ -155,6 +163,10 @@ void Level::render()
 	{
 		window->draw(*bullet);
 		window->draw(bullet->getDebugCollisionBox());
+	}
+
+	if (player.isAlive()) {
+		window->draw(CollectablesCollectedText);
 	}
 
 

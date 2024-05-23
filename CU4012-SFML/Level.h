@@ -35,4 +35,6 @@ private:
 
 	sf::Sprite testSprite;
 	sf::Texture testTex;
+
+	sf::Font CollectableFont;
 };
