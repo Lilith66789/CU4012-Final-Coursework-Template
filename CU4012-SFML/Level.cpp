@@ -9,7 +9,7 @@ Level::Level(sf::RenderWindow* hwnd, Input* in, GameState* gs, sf::View* v, Worl
 	world = w;
 	tileManager = tm;
 	audioManager = new AudioManager();
-	audioManager->addMusic("sfx/dark-forest_chosic.com_.ogg", "bgm");
+	//audioManager->addMusic("sfx/dark-forest_chosic.com_.ogg", "bgm");
 	audioManager->addSound("sfx/smb_jump-super.wav", "jump");
 
 
@@ -21,10 +21,10 @@ Level::Level(sf::RenderWindow* hwnd, Input* in, GameState* gs, sf::View* v, Worl
 
 
 	enemyArray[0].setPosition(500, 100);
-	enemyArray[1].setPosition(1800, 200);
+	enemyArray[1].setPosition(3480, 200);
 	enemyArray[2].setPosition(2800, 200);
-	enemyArray[3].setPosition(4000, 200);
-	enemyArray[4].setPosition(5100, 200);
+	enemyArray[3].setPosition(9800,608);
+	enemyArray[4].setPosition(6560, 1038);
 
 	for (int i = 0; i < 5; i++) {
 		world->AddGameObject(enemyArray[i]);
@@ -79,22 +79,17 @@ void Level::update(float dt)
 	view->setCenter(newX, view->getCenter().y);
 	window->setView(*view);
 
-
-	if (player.CollisionWithTag("Enemy"))
-	{
-		if (player.getCollisionDirection() == "Down") {
-
-			for (int i = 0; i < 5; i++)
-			{
-
-					world->RemoveGameObject(enemyArray[i]);
+	for (int i = 0; i < 5; i++) {
+		if (player.CollisionWithTag("Enemy")) {
+			if (player.getCollisionDirection() == "Down" || enemyArray[i].CollisionWithTag("Player")) {
+				world->RemoveGameObject(enemyArray[i]);
 					enemyArray[i].setAlive(false);
-				
-
 			}
-
+			player.ReduceHealth(0.1 * dt);
 		}
-		player.ReduceHealth(0.1 * dt);
+	}
+
+	if (player.CollisionWithTag("Collectable")) {
 	}
 
 	if (player.getHealth() <= 0)

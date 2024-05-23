@@ -39,7 +39,7 @@ Enemy::Enemy()
     Death.addFrame(sf::IntRect(31, 144, 16, 44));
     Death.addFrame(sf::IntRect(91, 144, 16, 44));
 
-    Death.setFrameSpeed(1.f / 2.f);
+    Death.setFrameSpeed(1.f / 3.f);
 
 
 	currentAnimation = &walk;

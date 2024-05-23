@@ -2,7 +2,7 @@
 
 Projectiles::Projectiles()
 {
-	speed = 500;
+	speed = 1000;
 	velocity.x = speed;
 	if (!texture.loadFromFile("gfx/Beach_Ball.png"))
 	{
@@ -12,6 +12,6 @@ Projectiles::Projectiles()
 	setSize(sf::Vector2f(10, 10));
 	setCollisionBox(getPosition(), getSize());
 	setTag("Bullet");
-	setMass(10.f);
+	setMass(1.f);
 	//setTrigger(true);
 }
