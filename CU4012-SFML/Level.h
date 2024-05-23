@@ -22,6 +22,9 @@ public:
 	void update(float dt) override;
 	void render();
 	void adjustViewToWindowSize(unsigned int width, unsigned int height);
+
+	sf::Text CollectablesCollectedText;
+
 private:
 	// Default variables for level class.
 	Player player;

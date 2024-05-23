@@ -80,16 +80,24 @@ void Level::update(float dt)
 	window->setView(*view);
 
 	for (int i = 0; i < 5; i++) {
-		if (player.CollisionWithTag("Enemy")) {
-			if (player.getCollisionDirection() == "Down" || enemyArray[i].CollisionWithTag("Player")) {
+		if (enemyArray[i].CollisionWithTag("Player")) {
+			if (player.getCollisionDirection() == "Down") {
 				world->RemoveGameObject(enemyArray[i]);
-					enemyArray[i].setAlive(false);
+				enemyArray[i].setAlive(false);
 			}
 			player.ReduceHealth(0.1 * dt);
 		}
 	}
 
-	if (player.CollisionWithTag("Collectable")) {
+	if (player.CollisionWithTag("Collectable"))
+	{
+		// Player is Colliding with Collectable
+		player.AddCollectable(); // Increment Collectable count
+		tileManager->RemoveCollectable(); // Remove the collectable
+
+		// Update the CollectablesCollectedText to display the new number of rings collected
+		int collectableCount = player.getCollectableCount(); // Assume p1 is the player object and has the getCollectablesCount method
+		CollectablesCollectedText.setString("Collected: " + std::to_string(collectableCount));
 	}
 
 	if (player.getHealth() <= 0)
