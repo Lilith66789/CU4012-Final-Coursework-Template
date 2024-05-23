@@ -13,7 +13,7 @@ WinScreen::WinScreen(sf::RenderWindow* hwnd, Input* in, GameState* WinScreen)
 
 	menu_texture.loadFromFile("gfx/menu.png");
 	menu_sprite.setTexture(menu_texture);
-	menu_sprite.setScale(1.25, 1);
+	menu_sprite.setScale(1, 1);
 
 
 	Title.setFont(titleFont);

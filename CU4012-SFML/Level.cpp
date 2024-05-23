@@ -10,7 +10,7 @@ Level::Level(sf::RenderWindow* hwnd, Input* in, GameState* gs, sf::View* v, Worl
 	tileManager = tm;
 	audioManager = new AudioManager();
 	//audioManager->addMusic("sfx/dark-forest_chosic.com_.ogg", "bgm");
-	audioManager->addSound("sfx/smb_jump-super.wav", "jump");
+	//audioManager->addSound("sfx/smb_jump-super.wav", "jump");
 
 
 	audioManager->playMusicbyName("bgm");
@@ -22,7 +22,7 @@ Level::Level(sf::RenderWindow* hwnd, Input* in, GameState* gs, sf::View* v, Worl
 
 	enemyArray[0].setPosition(500, 100);
 	enemyArray[1].setPosition(3480, 200);
-	enemyArray[2].setPosition(2800, 200);
+	enemyArray[2].setPosition(10760,500);
 	enemyArray[3].setPosition(9800,608);
 	enemyArray[4].setPosition(6560, 1038);
 
@@ -81,11 +81,7 @@ void Level::update(float dt)
 
 	for (int i = 0; i < 5; i++) {
 		if (enemyArray[i].CollisionWithTag("Player")) {
-			if (player.getCollisionDirection() == "Down") {
-				world->RemoveGameObject(enemyArray[i]);
-				enemyArray[i].setAlive(false);
-			}
-			player.ReduceHealth(0.1 * dt);
+			player.ReduceHealth(0.01 * dt);
 		}
 	}
 
@@ -100,17 +96,21 @@ void Level::update(float dt)
 		CollectablesCollectedText.setString("Collected: " + std::to_string(collectableCount));
 	}
 
-	if (player.getHealth() <= 0)
+	if ((player.getHealth() <= 0) || (player.getPosition().y > 1920))
 	{
+		player.setPosition(100, 100);
 		player.setAlive(false);
 		world->RemoveGameObject(player);
+		view->setCenter(WINDOWWIDTH / 2, WINDOWWIDTH / 2);
 		gameState->setCurrentState(State::DEAD);
-		player.setPosition(sf::Vector2f(100, player.getPosition().y));
+
 	}
 
-	if (player.getPosition().x > 10000) {
-		player.setPosition(sf::Vector2f(100, player.getPosition().y));
+	if (player.getPosition().x > 12000) {
+		player.setPosition(100, 100);
+		view->setCenter(WINDOWWIDTH / 2, WINDOWWIDTH / 2);
 		gameState->setCurrentState(State::WIN);
+
 	}
 
 	for (int i = 0; i < 5; i++) {

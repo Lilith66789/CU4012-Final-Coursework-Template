@@ -5,6 +5,7 @@ Player::Player()
 	speed = 700;
 	health = 100;
 	CollectableCount = 0;
+	setTag("Player");
 
 	playerSpriteSheet.loadFromFile("gfx/DarkSamuraiAssets/DarkSamurai (64x64).png");
 	setSize(sf::Vector2f(60*2, 81*2));
