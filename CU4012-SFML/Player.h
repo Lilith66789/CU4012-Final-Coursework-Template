@@ -8,6 +8,7 @@
 
 class Player : public GameObject
 {
+	//constructs variables and animations the player uses
 	int speed;
 	int health;
 	Animation walk;
@@ -30,6 +31,7 @@ class Player : public GameObject
 
 
 public:
+	//constructs functions for the player class to use
 	Player();
 	void handleInput(float dt) override;
 	bool isMoving ;

@@ -19,20 +19,20 @@ Level::Level(sf::RenderWindow* hwnd, Input* in, GameState* gs, sf::View* v, Worl
 	world->AddGameObject(player);
 	player.setWorld(world);
 
-
+	//sets up enemy locations
 	enemyArray[0].setPosition(500, 100);
 	enemyArray[1].setPosition(3480, 200);
 	enemyArray[2].setPosition(10760,500);
 	enemyArray[3].setPosition(9800,608);
 	enemyArray[4].setPosition(6560, 1038);
-
+	//adds enemies to world
 	for (int i = 0; i < 5; i++) {
 		world->AddGameObject(enemyArray[i]);
 	}
 
 	player.setInput(input);
 	player.setAudio(audioManager);
-
+	//sets collection counter settings
 	CollectableFont.loadFromFile("font/arial.ttf");
 	CollectablesCollectedText.setFont(CollectableFont);
 	CollectablesCollectedText.setFillColor(sf::Color::Magenta);
@@ -58,7 +58,7 @@ Level::~Level()
 }
 
 void Level::handleInput(float dt)
-{
+{//quit game and tile editor keys
 	if (input->isKeyDown(sf::Keyboard::Escape))
 	{
 		exit(0);
@@ -78,7 +78,7 @@ void Level::handleInput(float dt)
 // Update game objects
 void Level::update(float dt)
 {
-
+	//sets up screen size/ resolution and camera tracking
 	view->setCenter(view->getCenter().x, WINDOWHEIGHT / 2);
 
 	sf::Vector2f playerPosition = player.getPosition();
@@ -92,7 +92,7 @@ void Level::update(float dt)
 			player.ReduceHealth(0.01 * dt);
 		}
 	}
-
+	//detects for collision with collectable and removes it
 	if (player.CollisionWithTag("Collectable"))
 	{
 		// Player is Colliding with Collectable
@@ -103,7 +103,7 @@ void Level::update(float dt)
 		int collectableCount = player.getCollectableCount(); // Assume p1 is the player object and has the getCollectablesCount method
 		CollectablesCollectedText.setString("Collected: " + std::to_string(collectableCount));
 	}
-
+	//checks for dead player
 	if ((player.getHealth() <= 0) || (player.getPosition().y > 1920))
 	{
 		player.setPosition(100, 100);
@@ -113,14 +113,14 @@ void Level::update(float dt)
 		gameState->setCurrentState(State::DEAD);
 
 	}
-
+	//checks for reaching the ned
 	if (player.getPosition().x > 12000) {
 		player.setPosition(100, 100);
 		view->setCenter(WINDOWWIDTH / 2, WINDOWWIDTH / 2);
 		gameState->setCurrentState(State::WIN);
 
 	}
-
+	//checks if enemy is alive then removes them if not
 	for (int i = 0; i < 5; i++) {
 		if (!enemyArray[i].isAlive()) {
 			world->RemoveGameObject(enemyArray[i]);
@@ -130,7 +130,7 @@ void Level::update(float dt)
 
 // Render level
 void Level::render()
-{
+{//renders everything=
 	if (player.isAlive()) {
 	backgroundMng.render(window);
 	}
@@ -162,7 +162,7 @@ void Level::render()
 	for (auto& bullet : bullets)
 	{
 		window->draw(*bullet);
-		window->draw(bullet->getDebugCollisionBox());
+		//window->draw(bullet->getDebugCollisionBox());
 	}
 
 	if (player.isAlive()) {

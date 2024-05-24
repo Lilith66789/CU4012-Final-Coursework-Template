@@ -1,7 +1,7 @@
 #include "Projectiles.h"
 
 Projectiles::Projectiles()
-{
+{//sets variables and settings for bullet
 	speed = 1000;
 	velocity.x = speed;
 	if (!texture.loadFromFile("gfx/Beach_Ball.png"))

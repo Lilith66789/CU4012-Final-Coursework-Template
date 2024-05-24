@@ -11,7 +11,7 @@ Player::Player()
 	setSize(sf::Vector2f(60*2, 81*2));
 	setPosition(100, 100);
 	setTexture(&playerSpriteSheet);
-
+	//creates idle animation for player
 	idle.addFrame(sf::IntRect(16, 16, 32, 32));
 	idle.addFrame(sf::IntRect(80, 16, 32, 32));
 	idle.addFrame(sf::IntRect(144, 16, 32, 32));
@@ -23,7 +23,7 @@ Player::Player()
 
 	idle.setFrameSpeed(1.f / 8.f);
 
-
+	//creates walk animation for player
 	walk.addFrame(sf::IntRect(16, 80, 32, 32));
 	walk.addFrame(sf::IntRect(80, 80, 32, 32));
 	walk.addFrame(sf::IntRect(144, 80, 32, 32));
@@ -34,7 +34,7 @@ Player::Player()
 	walk.addFrame(sf::IntRect(464, 80, 32, 32));
 
 	walk.setFrameSpeed(1.f / 10.f);
-
+	//creates jump animation for player
 	jump.addFrame(sf::IntRect(16, 272, 32, 32));
 	jump.addFrame(sf::IntRect(80, 272, 32, 32));
 	jump.addFrame(sf::IntRect(144, 272, 32, 32));
@@ -49,8 +49,6 @@ Player::Player()
 	currentAnimation = &walk;
 	setTextureRect(currentAnimation->getCurrentFrame());
 
-	duck.addFrame(sf::IntRect(0, 44, 17, 17));
-	duck.setFrameSpeed(1.f / 2.f);
 }
 
 void Player::handleInput(float dt)
@@ -59,7 +57,7 @@ void Player::handleInput(float dt)
 	isMoving = false;
 	velocity.x = 0;
 	setTextureRect(currentAnimation->getCurrentFrame());
-
+	//controls left movement of player
 	if (input->isKeyDown(sf::Keyboard::A)) {
 		velocity.x = -speed;
 		currentAnimation = &walk;
@@ -69,7 +67,7 @@ void Player::handleInput(float dt)
 		isMoving = true;
 		isFlipped = true;
 	}
-
+	//controlls right movement of player
 	else if (input->isKeyDown(sf::Keyboard::D)) {
 		velocity.x = speed;
 		currentAnimation = &walk;
@@ -85,12 +83,12 @@ void Player::handleInput(float dt)
 		//currentAnimation->reset();
 		currentAnimation = &idle;
 	}
-
+	//checks for player jumping
 	if (input->isKeyDown(sf::Keyboard::Space) && canJump || input->isKeyDown(sf::Keyboard::W)&&canJump) {
 		Jump(200.f);
 		audio->playSoundbyName("jump");
 	}
-
+	//plays animation of jump if jumping
 	if (!canJump)
 	{
 		currentAnimation = &jump;
@@ -99,7 +97,7 @@ void Player::handleInput(float dt)
 	{
 		jump.reset();
 	}
-
+	//adds collectable when colliding with it
 	if (CollisionWithTag("Collectable")) {
 		AddCollectable();
 		std::cout << CollectableCount << std::endl;

@@ -17,14 +17,14 @@ Enemy::Enemy()
 	setPosition(400, 400);
 	setTexture(&enemySpriteSheet);
 
-
+    //creates idle animation for enemy
 	idle.addFrame(sf::IntRect(32, 80, 16, 44));
 	idle.addFrame(sf::IntRect(96, 80, 16, 44));
 	idle.addFrame(sf::IntRect(160, 80, 16, 44));
 	idle.addFrame(sf::IntRect(224, 80, 16, 44));
 
 	idle.setFrameSpeed(1.f / 4.f);
-
+    //creates walk animation for enemy
 	walk.addFrame(sf::IntRect(32, 16, 16, 44));
 	walk.addFrame(sf::IntRect(96, 16, 16, 44));
 	walk.addFrame(sf::IntRect(158, 16, 16, 44));
@@ -33,7 +33,7 @@ Enemy::Enemy()
 	walk.addFrame(sf::IntRect(350, 16, 16, 44));
 
 	walk.setFrameSpeed(1.f / 4.f);
-
+    //creates  death animation for enemy
     Death.addFrame(sf::IntRect(188, 80, 16, 44));
     Death.addFrame(sf::IntRect(350, 80, 16, 44));
     Death.addFrame(sf::IntRect(31, 144, 16, 44));
@@ -77,9 +77,8 @@ void Enemy::handleInput(float dt)
             idle.setFlipped(velocity.x < 0); // Flip based on new direction
             currentAnimation = &walk;
         }
-        //return; // Skip the rest of the update while waiting
     }
-
+    //detects if bullet hits enemy 
     if (CollisionWithTag("Bullet")) {
             currentAnimation = &Death;
             velocity.x = 0;
